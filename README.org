@@ -1,0 +1,10 @@
+#+TITLE: Cinema Ticketing System
+
+* Compiling
+#+begin_src bash
+javac -d bin/ src/<filename>.java
+javac -cp bin/ -d bin/ src/<filename>.java
+java -cp bin/ <mainclass>
+#+end_src
+* Contributor
+** <list your name here>
