@@ -12,4 +12,4 @@ java -cp bin/ <mainclass>
 #+end_src
 
 * Contributor
-** <list your name here>
+- <list your name here>
