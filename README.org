@@ -1,8 +1,8 @@
 #+TITLE: Cinema Ticketing System
 
 * Repository Structure
-** ~bin/~: ~.class~ files. Use ~javac~ command to compile ~.java~ file and set ~bin/~ as destination (and classpath)
-** ~src/~: ~.java~ files
+- ~bin/~: ~.class~ files. Use ~javac~ command to compile ~.java~ file and set ~bin/~ as destination (and classpath)
+- ~src/~: ~.java~ files
 
 * Compiling
 #+begin_src bash
