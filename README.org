@@ -1,10 +1,15 @@
 #+TITLE: Cinema Ticketing System
 
+* Repository Structure
+** ~bin/~: ~.class~ files. Use ~javac~ command to compile ~.java~ file and set ~bin/~ as destination (and classpath)
+** ~src/~: ~.java~ files
+
 * Compiling
 #+begin_src bash
 javac -d bin/ src/<filename>.java
 javac -cp bin/ -d bin/ src/<filename>.java
 java -cp bin/ <mainclass>
 #+end_src
+
 * Contributor
 ** <list your name here>
