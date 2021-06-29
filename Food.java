@@ -1,9 +1,11 @@
 public abstract class Food {
     private String name;
+    private char size;
     private int price;
 
-    public Food(String name, int price) {
+    public Food(String name, char size, int price) {
         this.name = name;
+        this.size = size;
         this.price = price;
     }
 
@@ -11,6 +13,14 @@ public abstract class Food {
 
     public String getName() {
         return name;
+    }
+
+    public char getSize() {
+        return size;
+    }
+
+    public void setSize(char size) {
+        this.size = size;
     }
 
     public int getPrice() {
