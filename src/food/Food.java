@@ -1,3 +1,4 @@
+package src.food;
 public abstract class Food {
     private String name;
     private char size;
