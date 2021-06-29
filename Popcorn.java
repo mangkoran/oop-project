@@ -1,11 +1,9 @@
 public class Popcorn extends Food {
     private String flavour;
-    private char size;
 
     public Popcorn(String name, String flavour, char size, int price) {
-        super(name, price);
+        super(name, size, price);
         this.flavour = flavour;
-        this.size = size;
     }
 
     public String description() {
@@ -14,9 +12,5 @@ public class Popcorn extends Food {
 
     public String getFlavour() {
         return flavour;
-    }
-
-    public char getSize() {
-        return size;
     }
 }
