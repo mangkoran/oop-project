@@ -7,7 +7,7 @@ public class Popcorn extends Food {
     }
 
     public String description() {
-        return "Corn kernel which expands and puffs up when heated, comes in different flavours.";
+        return "Corn kernel which expands and puffs up when heated, comes in different flavours";
     }
 
     public String getFlavour() {
