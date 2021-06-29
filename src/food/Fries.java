@@ -1,4 +1,4 @@
-package src;
+package src.food;
 public class Fries extends Food {
 
     public Fries(String name, char size, int price) {
