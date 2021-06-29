@@ -5,6 +5,6 @@ public class Water extends Food {
     }
 
     public String description() {
-        return "Your usual mineral water.";
+        return "Your usual mineral water";
     }
 }
