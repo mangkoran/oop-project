@@ -1,4 +1,4 @@
-package src.food;
+package food;
 public class Popcorn extends Food {
     private String flavour;
 
