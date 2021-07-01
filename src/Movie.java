@@ -7,17 +7,15 @@ public class Movie {
     private int runningTime;
     private AgeRating ageRating;
     private TicketPrice ticketPrice;
-    private ArrayList<Time> times;
-    private ArrayList<Seat> seats;
+    private ArrayList<TimeSeat> timeSeats;
 
-    public Movie(String title, int runningTime, AgeRating ageRating, LocalDate releaseDate, ArrayList<Time> times,
-            ArrayList<Seat> seats, TicketPrice ticketPrice) {
+    public Movie(String title, int runningTime, AgeRating ageRating, LocalDate releaseDate, ArrayList<TimeSeat> timeSeats,
+            TicketPrice ticketPrice) {
         this.title = title;
         this.runningTime = runningTime;
         this.ageRating = ageRating;
         this.releaseDate = releaseDate;
-        this.times = times;
-        this.seats = seats;
+        this.timeSeats = timeSeats;
         this.ticketPrice = ticketPrice;
     }
 
