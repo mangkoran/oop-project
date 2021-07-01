@@ -1,3 +1,5 @@
+package movie;
+
 public enum AgeRating {
     G("General Audience"), PG("Parental Guidance"), R("Restricted");
 

@@ -1,3 +1,5 @@
+package movie;
+
 public class TicketPrice {
     private int adult;
     private int child;
