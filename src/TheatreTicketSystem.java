@@ -1,8 +1,14 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
+import movie.*;
 
-public class TheatreTicketSystem {
-    static ArrayList<Theatre> theatres;
+
+public class TheatreTicketSystem implements LocationDate {
+    static ArrayList<Theatre> theatres = new ArrayList<Theatre>();
+    static ArrayList<Sale> sales = new ArrayList<Sale>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -39,14 +45,14 @@ public class TheatreTicketSystem {
                           "Welcome to MoistCinema!%n" +
                           "%n" +
                           "Location: %s%n" +
-                          "Date: %s%n" +
+                          "Date: %s Time: %s%n" +
                           "%n" +
                           "Main Menu%n" +
                           "[1] New Ticket Sale%n" +
                           "[2] View Ticket Sale History%n" +
                           "%n" +
                           "Select option [1-2]: ",
-                          "TEST", "TEST");
+                          location, date.toString(), time.toString());
         int choice = in.nextInt();
 
         return choice;
@@ -60,4 +66,10 @@ public class TheatreTicketSystem {
         System.out.printf("printed from viewTicketPurchaseHistory%n");
 
     }
+}
+
+interface LocationDate {
+    String location = "Johor, Malaysia";
+    LocalDate date = LocalDate.now();
+    LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
 }
