@@ -3,7 +3,7 @@ import movie.*;
 
 public class Theatre {
     private String name;
-    ArrayList<Movie> movies;
+    private ArrayList<Movie> movies;
 
     public Theatre(String name, ArrayList<Movie> movies) {
         this.name = name;
