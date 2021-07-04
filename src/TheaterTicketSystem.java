@@ -6,8 +6,8 @@ import food.*;
 import movie.*;
 
 
-public class TheatreTicketSystem implements LocationDate {
-    static ArrayList<Theatre> theatres = new ArrayList<Theatre>();
+public class TheaterTicketSystem implements LocationDate {
+    static ArrayList<Theater> theaters = new ArrayList<Theater>();
     static ArrayList<Sale> sales = new ArrayList<Sale>();
 
     public static void main(String[] args) {
@@ -28,8 +28,8 @@ public class TheatreTicketSystem implements LocationDate {
         testTimeSeats.add(new TimeSeat("HALL2", testCal, testSeats));
         ArrayList<Movie> testMovies = new ArrayList<Movie>();
         testMovies.add(new Movie("TITLE", 111, AgeRating.G, testCal, new TicketPrice(1, 2, 3), testTimeSeats));
-        Theatre testTheatre = new Theatre("NAME", testMovies);
-        theatres.add(testTheatre);
+        Theater testTheater = new Theater("NAME", testMovies);
+        theaters.add(testTheater);
         // viewTicketSaleHistory DATA
         ArrayList<Food> testFoods = new ArrayList<Food>();
         testFoods.add(new Water("WATER", 'M', 1));
