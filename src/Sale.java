@@ -6,7 +6,9 @@ import food.Food;
 public class Sale {
     private String hall;
     private String movie;
-    private int tickets[];
+    private int adultTicket;
+    private int childTicket;
+    private int seniorTicket;
     private Calendar movieTime;
     private String customerName;
     private ArrayList<Food> foods;
@@ -15,7 +17,9 @@ public class Sale {
 
     public Sale(String hall,
                 String movie,
-                int[] tickets,
+                int adultTicket,
+                int childTicket,
+                int seniorTicket,
                 String customerName,
                 Calendar movieTime,
                 ArrayList<Food> foods,
@@ -23,7 +27,9 @@ public class Sale {
                 ArrayList<Integer> foodQuantity) {
         this.hall = hall;
         this.movie = movie;
-        this.tickets = tickets;
+        this.adultTicket = adultTicket;
+        this.childTicket = childTicket;
+        this.seniorTicket = seniorTicket;
         this.customerName = customerName;
         this.movieTime = movieTime;
         this.foods = foods;
@@ -63,12 +69,28 @@ public class Sale {
         this.seats = seats;
     }
 
-    public int[] getTickets() {
-        return tickets;
+    public int getAdultTicket() {
+        return adultTicket;
     }
 
-    public void setTickets(int[] tickets) {
-        this.tickets = tickets;
+    public void setAdultTicket(int adultTicket) {
+        this.adultTicket = adultTicket;
+    }
+
+    public int getChildTicket() {
+        return childTicket;
+    }
+
+    public void setChildTicket(int childTicket) {
+        this.childTicket = childTicket;
+    }
+
+    public int getSeniorTicket() {
+        return seniorTicket;
+    }
+
+    public void setSeniorTicket(int seniorTicket) {
+        this.seniorTicket = seniorTicket;
     }
 
     public Calendar getMovieTime() {
