@@ -1,13 +1,13 @@
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-import food.*;
+import food.Food;
 
 public class Sale {
     private String hall;
     private String movie;
     private int tickets[];
-    private LocalTime movieTime;
+    private Calendar movieTime;
     private String customerName;
     private ArrayList<Food> foods;
     private ArrayList<Integer> seats;
@@ -17,7 +17,7 @@ public class Sale {
                 String movie,
                 int[] tickets,
                 String customerName,
-                LocalTime movieTime,
+                Calendar movieTime,
                 ArrayList<Food> foods,
                 ArrayList<Integer> seats,
                 ArrayList<Integer> foodQuantity) {
@@ -71,11 +71,11 @@ public class Sale {
         this.tickets = tickets;
     }
 
-    public LocalTime getMovieTime() {
+    public Calendar getMovieTime() {
         return movieTime;
     }
 
-    public void setMovieTime(LocalTime movieTime) {
+    public void setMovieTime(Calendar movieTime) {
         this.movieTime = movieTime;
     }
 
@@ -93,5 +93,9 @@ public class Sale {
 
     public void setFoodQuantity(ArrayList<Integer> foodQuantity) {
         this.foodQuantity = foodQuantity;
+    }
+
+    public void printSale() {
+
     }
 }

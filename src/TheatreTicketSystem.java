@@ -1,9 +1,6 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
-import movie.*;
 
 
 public class TheatreTicketSystem implements LocationDate {
@@ -18,20 +15,18 @@ public class TheatreTicketSystem implements LocationDate {
             int choice = mainMenu(in);
             switch (choice) {
                 case 1:
-                    newTicketPurchase();
+                    newTicketSale();
                     break;
                 case 2:
-                    viewTicketPurchaseHistory();
+                    viewTicketSaleHistory();
                     break;
                 case 3:
                     continueSession = false;
-                    System.out.printf(
-                                      "%n" +
+                    System.out.printf("%n" +
                                       "Quitting system...%n");
                     break;
                 default:
-                    System.out.printf(
-                                      "%n" +
+                    System.out.printf("%n" +
                                       "Error! Please enter option correctly!%n");
                     break;
             }
@@ -40,36 +35,36 @@ public class TheatreTicketSystem implements LocationDate {
     }
 
     static int mainMenu(Scanner in) {
-        System.out.printf(
-                          "%n" +
+        System.out.printf("%n" +
                           "Welcome to MoistCinema!%n" +
                           "%n" +
                           "Location: %s%n" +
-                          "Date: %s Time: %s%n" +
+                          "Date: %tA %tD Time: %tT%n" +
                           "%n" +
                           "Main Menu%n" +
                           "[1] New Ticket Sale%n" +
                           "[2] View Ticket Sale History%n" +
                           "%n" +
                           "Select option [1-2]: ",
-                          location, date.toString(), time.toString());
+                          location, dateTime, dateTime, dateTime);
         int choice = in.nextInt();
 
         return choice;
     }
 
-    static void newTicketPurchase() {
-        System.out.printf("printed from newTicketPurchase%n");
+    static void newTicketSale() {
+        System.out.printf("printed from newTicketSale%n");
     }
 
-    static void viewTicketPurchaseHistory() {
-        System.out.printf("printed from viewTicketPurchaseHistory%n");
+    static void viewTicketSaleHistory() {
+        }
+
+        System.out.printf("printed from viewTicketSaleHistory%n");
 
     }
 }
 
 interface LocationDate {
     String location = "Johor, Malaysia";
-    LocalDate date = LocalDate.now();
-    LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+    Calendar dateTime = Calendar.getInstance();
 }

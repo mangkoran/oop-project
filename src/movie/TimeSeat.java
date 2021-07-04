@@ -1,14 +1,14 @@
 package movie;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimeSeat {
     private String hall;
-    private LocalTime time;
+    private Calendar time;
     private ArrayList<Boolean> seats;
 
-    public TimeSeat(String hall, LocalTime time, ArrayList<Boolean> seats) {
+    public TimeSeat(String hall, Calendar time, ArrayList<Boolean> seats) {
         this.hall = hall;
         this.time = time;
         this.seats = seats;
@@ -22,11 +22,11 @@ public class TimeSeat {
         this.hall = hall;
     }
 
-    public LocalTime getTime() {
+    public Calendar getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(Calendar time) {
         this.time = time;
     }
 

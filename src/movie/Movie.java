@@ -1,20 +1,20 @@
 package movie;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Movie {
     private String title;
     private int runningTime;
     private AgeRating ageRating;
-    private LocalDate releaseDate;
+    private Calendar releaseDate;
     private TicketPrice ticketPrice;
     private ArrayList<TimeSeat> timeSeats;
 
     public Movie(String title,
                  int runningTime,
                  AgeRating ageRating,
-                 LocalDate releaseDate,
+                 Calendar releaseDate,
                  TicketPrice ticketPrice,
                  ArrayList<TimeSeat> timeSeats) {
         this.title = title;
