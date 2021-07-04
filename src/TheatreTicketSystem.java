@@ -57,6 +57,21 @@ public class TheatreTicketSystem implements LocationDate {
     }
 
     static void viewTicketSaleHistory() {
+        int no = 0;
+        for (Sale sale : sales) {
+            no++;
+            System.out.printf("%n" +
+                              "Ticket Sale History%n" +
+                              "Sale [%d]" +
+                              "Customer Name: %s%n" +
+                              "Movie: %s%n" +
+                              "Movie Time: %tR%n" +
+                              "Hall: %s%n" +
+                              "Tickets: %n" +
+                              "    Adult: %d Child: %d Senior: %d%n",
+                              no, sale.getCustomerName(), sale.getMovie(),
+                              sale.getMovieTime(), sale.getHall(), sale.getTickets()[0],
+                              sale.getTickets()[1], sale.getTickets()[2]);
         }
 
         System.out.printf("printed from viewTicketSaleHistory%n");
