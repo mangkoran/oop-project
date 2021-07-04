@@ -5,7 +5,6 @@ import java.util.Scanner;
 import food.*;
 import movie.*;
 
-
 public class TheaterTicketSystem implements LocationDate {
     static ArrayList<Theater> theaters = new ArrayList<Theater>();
     static ArrayList<Sale> sales = new ArrayList<Sale>();
@@ -17,14 +16,14 @@ public class TheaterTicketSystem implements LocationDate {
         testCal.set(Calendar.HOUR_OF_DAY, 1);
         testCal.set(Calendar.MINUTE, 1);
         ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
-        testSeats.add(false);
-        testSeats.add(false);
-        testSeats.add(false);
+        testSeats.add(true);
+        testSeats.add(true);
+        testSeats.add(true);
         ArrayList<TimeSeat> testTimeSeats = new ArrayList<TimeSeat>();
         testTimeSeats.add(new TimeSeat("HALL", testCal, testSeats));
         testCal.set(Calendar.HOUR_OF_DAY, 2);
         testCal.set(Calendar.MINUTE, 2);
-        testSeats.add(false);
+        testSeats.add(true);
         testTimeSeats.add(new TimeSeat("HALL2", testCal, testSeats));
         ArrayList<Movie> testMovies = new ArrayList<Movie>();
         testMovies.add(new Movie("TITLE", 111, AgeRating.G, testCal, new TicketPrice(1, 2, 3), testTimeSeats));
