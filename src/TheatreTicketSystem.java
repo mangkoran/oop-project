@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import food.*;
+import movie.*;
 
 
 public class TheatreTicketSystem implements LocationDate {
@@ -12,22 +13,35 @@ public class TheatreTicketSystem implements LocationDate {
     public static void main(String[] args) {
         // TEST DATA
         // newTicketSale DATA
-
-        // viewTicketSaleHistory DATA
         Calendar testCal = (Calendar)dateTime.clone();
-        testCal.set(Calendar.HOUR_OF_DAY, 7);
-        testCal.set(Calendar.MINUTE, 27);
+        testCal.set(Calendar.HOUR_OF_DAY, 1);
+        testCal.set(Calendar.MINUTE, 1);
+        ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
+        testSeats.add(false);
+        testSeats.add(false);
+        testSeats.add(false);
+        ArrayList<TimeSeat> testTimeSeats = new ArrayList<TimeSeat>();
+        testTimeSeats.add(new TimeSeat("HALL", testCal, testSeats));
+        testCal.set(Calendar.HOUR_OF_DAY, 2);
+        testCal.set(Calendar.MINUTE, 2);
+        testSeats.add(false);
+        testTimeSeats.add(new TimeSeat("HALL2", testCal, testSeats));
+        ArrayList<Movie> testMovies = new ArrayList<Movie>();
+        testMovies.add(new Movie("TITLE", 111, AgeRating.G, testCal, new TicketPrice(1, 2, 3), testTimeSeats));
+        Theatre testTheatre = new Theatre("NAME", testMovies);
+        theatres.add(testTheatre);
+        // viewTicketSaleHistory DATA
         ArrayList<Food> testFoods = new ArrayList<Food>();
-        testFoods.add(new Water("WATER", 'M', 7));
-        ArrayList<Integer> testSeats = new ArrayList<Integer>();
-        testSeats.add(1);
-        testSeats.add(2);
-        testSeats.add(3);
+        testFoods.add(new Water("WATER", 'M', 1));
+        ArrayList<Integer> testSeats2 = new ArrayList<Integer>();
+        testSeats2.add(1);
+        testSeats2.add(2);
+        testSeats2.add(3);
         ArrayList<Integer> testFoodQuantity = new ArrayList<Integer>();
         testFoodQuantity.add(1);
         Sale testSale = new Sale("HALL", "MOVIE", 1,
                            2, 3, "CUSTOMERNAME",
-                           testCal, testFoods, testSeats,
+                           testCal, testFoods, testSeats2,
                            testFoodQuantity);
         sales.add(testSale);
         // TEST DATA END
@@ -78,9 +92,13 @@ public class TheatreTicketSystem implements LocationDate {
     static void newTicketSale() {
         System.out.printf("printed from newTicketSale%n");
 
-
     }
 
+    static void movieSelection() {
+        System.out.printf("Now Playing:%n" +
+                          "%n");
+
+    }
     static void viewTicketSaleHistory() {
         System.out.printf("printed from viewTicketSaleHistory%n");
 
