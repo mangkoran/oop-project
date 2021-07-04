@@ -5,20 +5,24 @@ import java.util.ArrayList;
 
 public class Movie {
     private String title;
-    private LocalDate releaseDate;
     private int runningTime;
     private AgeRating ageRating;
+    private LocalDate releaseDate;
     private TicketPrice ticketPrice;
     private ArrayList<TimeSeat> timeSeats;
 
-    public Movie(String title, int runningTime, AgeRating ageRating, LocalDate releaseDate, ArrayList<TimeSeat> timeSeats,
-            TicketPrice ticketPrice) {
+    public Movie(String title,
+                 int runningTime,
+                 AgeRating ageRating,
+                 LocalDate releaseDate,
+                 TicketPrice ticketPrice,
+                 ArrayList<TimeSeat> timeSeats) {
         this.title = title;
         this.runningTime = runningTime;
         this.ageRating = ageRating;
         this.releaseDate = releaseDate;
-        this.timeSeats = timeSeats;
         this.ticketPrice = ticketPrice;
+        this.timeSeats = timeSeats;
     }
 
     public void printTime() {
