@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import movie.*;
 
-public class Theatre {
+public class Theater {
     private String name;
     private ArrayList<Movie> movies;
 
-    public Theatre(String name, ArrayList<Movie> movies) {
+    public Theater(String name, ArrayList<Movie> movies) {
         this.name = name;
         this.movies = movies;
     }

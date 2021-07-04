@@ -1,17 +1,17 @@
 package movie;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimeSeat {
     private String hall;
-    private LocalTime time;
-    private ArrayList<Boolean> seat;
+    private Calendar time;
+    private ArrayList<Boolean> seats;
 
-    public TimeSeat(ArrayList<Boolean> seat, String hall, LocalTime time) {
-        this.seat = seat;
+    public TimeSeat(String hall, Calendar time, ArrayList<Boolean> seats) {
         this.hall = hall;
         this.time = time;
+        this.seats = seats;
     }
 
     public String getHall() {
@@ -22,27 +22,27 @@ public class TimeSeat {
         this.hall = hall;
     }
 
-    public LocalTime getTime() {
+    public Calendar getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(Calendar time) {
         this.time = time;
     }
 
-    public ArrayList<Boolean> getSeat() {
-        return seat;
+    public ArrayList<Boolean> getSeats() {
+        return seats;
     }
 
-    public void setSeat(ArrayList<Boolean> seat) {
-        this.seat = seat;
+    public void setSeats(ArrayList<Boolean> seats) {
+        this.seats = seats;
     }
 
-    public Boolean getSeatStatus(int i) {
-        return seat.get(i);
+    public Boolean getSeat(int i) {
+        return seats.get(i);
     }
 
-    public void setSeatStatus(int i, Boolean b) {
-        this.seat.set(i, b);
+    public void setSeat(int i, Boolean b) {
+        this.seats.set(i, b);
     }
 }
