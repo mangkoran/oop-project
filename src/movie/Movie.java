@@ -25,6 +25,54 @@ public class Movie {
         this.timeSeats = timeSeats;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public AgeRating getAgeRating() {
+        return ageRating;
+    }
+
+    public void setAgeRating(AgeRating ageRating) {
+        this.ageRating = ageRating;
+    }
+
+    public ArrayList<TimeSeat> getTimeSeats() {
+        return timeSeats;
+    }
+
+    public void setTimeSeats(ArrayList<TimeSeat> timeSeats) {
+        this.timeSeats = timeSeats;
+    }
+
+    public int getRunningTime() {
+        return runningTime;
+    }
+
+    public void setRunningTime(int runningTime) {
+        this.runningTime = runningTime;
+    }
+
+    public Calendar getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Calendar releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public TicketPrice getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(TicketPrice ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
     public void printTime() {
 
     }
