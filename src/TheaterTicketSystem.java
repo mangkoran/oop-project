@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import food.*;
 import movie.*;
@@ -13,7 +15,50 @@ public class TheaterTicketSystem implements LocationDate {
     public static void main(String[] args) {
         // TEST DATA
         // newTicketSale DATA
-        Calendar testCal = (Calendar)dateTime.clone();
+
+        try {
+            Scanner data = new Scanner(new File("dataFile.txt"));
+            data.useDelimiter(",");
+            while(data.hasNext()) {
+                ArrayList<Movie> testMovies = new ArrayList<Movie>();
+                Movie tempMovie = new Movie();
+                tempMovie.setTitle(data.next()); //set movie title
+
+                tempMovie.setRunningTime(data.nextInt());//set movie running time
+
+                AgeRating tempAgeRating = Enum.valueOf(AgeRating.class, data.next()); //set movie age rating (not sure)
+                tempMovie.setAgeRating(tempAgeRating);
+
+                //for releaseDate and TimeSeat
+                Calendar testCal = (Calendar)dateTime.clone();
+                testCal.set(Calendar.HOUR_OF_DAY, data.nextInt());
+                testCal.set(Calendar.MINUTE, data.nextInt());
+                tempMovie.setReleaseDate(testCal);//set to movie()
+
+                TicketPrice tempTicketPrice = new TicketPrice(data.nextInt(), data.nextInt(), data.nextInt());//set different types of ticket prices
+                tempMovie.setTicketPrice(tempTicketPrice);//set the prices to movie()
+
+                //data for TimeSeat
+                ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
+                for(int i=0; i<data.nextInt(); i++) {
+                    testSeats.add(true);
+                }
+
+                ArrayList<TimeSeat> testTimeSeats = new ArrayList<TimeSeat>();
+                testTimeSeats.add(new TimeSeat(data.next(), testCal, testSeats));
+                tempMovie.setTimeSeats(testTimeSeats);
+                //end of TimeSeat
+
+                testMovies.add(tempMovie);
+            }
+            data.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("The required data is not available");
+            e.printStackTrace();
+        }
+
+        /*Calendar testCal = (Calendar)dateTime.clone();
         testCal.set(Calendar.HOUR_OF_DAY, 1);
         testCal.set(Calendar.MINUTE, 1);
         ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
@@ -47,7 +92,7 @@ public class TheaterTicketSystem implements LocationDate {
         Sale testSale = new Sale("HALL", "MOVIE", "CUSTOMERNAME",
                                  testCal, foods, testSeats2,
                                  testTickets, testFoodQuantity);
-        sales.add(testSale);
+        sales.add(testSale);*/
         // TEST DATA END
         Scanner in = new Scanner(System.in);
         boolean continueSession = true;
