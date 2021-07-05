@@ -11,6 +11,8 @@ public class Movie {
     private TicketPrice ticketPrice;
     private ArrayList<TimeSeat> timeSeats;
 
+    public Movie() {}
+
     public Movie(String title,
                  int runningTime,
                  AgeRating ageRating,
