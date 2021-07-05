@@ -6,34 +6,28 @@ import food.Food;
 public class Sale {
     private String hall;
     private String movie;
-    private int adultTicket;
-    private int childTicket;
-    private int seniorTicket;
     private Calendar movieTime;
     private String customerName;
     private ArrayList<Food> foods;
     private ArrayList<Integer> seats;
+    private ArrayList<Integer> tickets;
     private ArrayList<Integer> foodQuantity;
 
     public Sale(String hall,
                 String movie,
-                int adultTicket,
-                int childTicket,
-                int seniorTicket,
                 String customerName,
                 Calendar movieTime,
                 ArrayList<Food> foods,
                 ArrayList<Integer> seats,
+                ArrayList<Integer> tickets,
                 ArrayList<Integer> foodQuantity) {
         this.hall = hall;
         this.movie = movie;
-        this.adultTicket = adultTicket;
-        this.childTicket = childTicket;
-        this.seniorTicket = seniorTicket;
         this.customerName = customerName;
         this.movieTime = movieTime;
         this.foods = foods;
         this.seats = seats;
+        this.tickets = tickets;
         this.foodQuantity = foodQuantity;
     }
 
@@ -69,28 +63,12 @@ public class Sale {
         this.seats = seats;
     }
 
-    public int getAdultTicket() {
-        return adultTicket;
+    public ArrayList<Integer> getTickets() {
+        return tickets;
     }
 
-    public void setAdultTicket(int adultTicket) {
-        this.adultTicket = adultTicket;
-    }
-
-    public int getChildTicket() {
-        return childTicket;
-    }
-
-    public void setChildTicket(int childTicket) {
-        this.childTicket = childTicket;
-    }
-
-    public int getSeniorTicket() {
-        return seniorTicket;
-    }
-
-    public void setSeniorTicket(int seniorTicket) {
-        this.seniorTicket = seniorTicket;
+    public void setTickets(ArrayList<Integer> tickets) {
+        this.tickets = tickets;
     }
 
     public Calendar getMovieTime() {
@@ -115,9 +93,5 @@ public class Sale {
 
     public void setFoodQuantity(ArrayList<Integer> foodQuantity) {
         this.foodQuantity = foodQuantity;
-    }
-
-    public void printSale() {
-
     }
 }
