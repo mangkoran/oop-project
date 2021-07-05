@@ -210,8 +210,6 @@ public class TheaterTicketSystem implements LocationDate {
         while (i + 1 != foods.size()) {
 
         }
-        // foodsTemp.add(foods.get(in.nextInt() - 1));
-        // System.out.printf("Quantity of %s: ", foodsTemp.get(0));
     }
 
     static void viewTicketSaleHistory() {
