@@ -37,7 +37,7 @@ public class TheaterTicketSystem implements LocationDate {
                 TicketPrice tempTicketPrice = new TicketPrice(data.nextInt(), data.nextInt(), data.nextInt());//set different types of ticket prices
 
                 ArrayList<TimeSeat> tempTimeSeat = new ArrayList<TimeSeat>();
-                while() { //multiple TimeSeat
+                while(data.hasNext(";")) { //multiple TimeSeat
                     String tempHall = data.next();
                     //data for movie time
                     Calendar tempMovieTime = (Calendar)dateTime.clone();
