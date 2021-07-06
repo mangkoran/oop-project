@@ -106,6 +106,7 @@ public class TheaterTicketSystem implements LocationDate {
                 }
             }
             if (loop) {
+                System.out.printf("Error!%n");
                 timeSeatTemp = timeSelection(in, movieTemp);
             }
         }
@@ -123,8 +124,12 @@ public class TheaterTicketSystem implements LocationDate {
                     availableSeat++;
                 }
             }
-            if (ticketTotalTemp > availableSeat) {
-                System.out.printf("%n");
+            if (ticketTotalTemp <= availableSeat) {
+                loop = false;
+            }
+            if (loop) {
+                System.out.printf("Error!%n");
+                ticketsTemp = ticketSelection(in, movieTemp, timeSeatTemp);
             }
         }
         ArrayList<Integer> seatsTemp = seatSelection(in, timeSeatTemp, ticketTotalTemp);
@@ -216,7 +221,13 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("%n");
         for (int i = 0; i < tickets; i++) {
             System.out.printf("- Seat %d: ", i + 1);
-            seatsTemp.add(in.nextInt() - 1);
+            int selectedSeat = in.nextInt() - 1;
+            if (timeSeat.getSeat(selectedSeat)) {
+                seatsTemp.add(selectedSeat);
+            } else {
+                i--;
+                System.out.printf("Error!%n");
+            }
         }
         for (Integer seat : seatsTemp) {
             timeSeat.setSeat(seat, false);
