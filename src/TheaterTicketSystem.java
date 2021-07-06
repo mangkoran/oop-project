@@ -18,7 +18,7 @@ public class TheaterTicketSystem implements LocationDate {
 
         try {
             Scanner data = new Scanner(new File("dataFile.txt"));
-            data.useDelimiter(",");
+            data.useDelimiter(",|;");
             while(data.hasNext()) {
                 ArrayList<Movie> testMovies = new ArrayList<Movie>();
                 //Movie tempTitle, tempRunTime, tempMovieRating, tempReleaseDate, tempTicketPrice, tempTimeSeat;
@@ -28,24 +28,31 @@ public class TheaterTicketSystem implements LocationDate {
 
                 AgeRating testAgeRating = Enum.valueOf(AgeRating.class, data.next()); //set movie age rating (not sure)
 
-                //for releaseDate and TimeSeat
-                Calendar tempCalendar = (Calendar)dateTime.clone();
-                tempCalendar.set(Calendar.HOUR_OF_DAY, data.nextInt());
-                tempCalendar.set(Calendar.MINUTE, data.nextInt());
+                //for releaseDate
+                Calendar tempReleaseDate = (Calendar)dateTime.clone();
+                tempReleaseDate.set(Calendar.DAY_OF_MONTH, data.nextInt());
+                tempReleaseDate.set(Calendar.MONTH, data.nextInt());
+                tempReleaseDate.set(Calendar.YEAR, data.nextInt());
 
                 TicketPrice tempTicketPrice = new TicketPrice(data.nextInt(), data.nextInt(), data.nextInt());//set different types of ticket prices
 
-                //data for TimeSeat
-                ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
-                for(int i=0; i<data.nextInt(); i++) {
-                    testSeats.add(true);
+                ArrayList<TimeSeat> tempTimeSeat = new ArrayList<TimeSeat>();
+                while() { //multiple TimeSeat
+                    String tempHall = data.next();
+                    //data for movie time
+                    Calendar tempMovieTime = (Calendar)dateTime.clone();
+                    tempMovieTime.set(Calendar.HOUR_OF_DAY, data.nextInt());
+                    tempMovieTime.set(Calendar.MINUTE, data.nextInt());
+                    //seats
+                    ArrayList<Boolean> testSeats = new ArrayList<Boolean>();
+                    for(int j=0; j<data.nextInt(); j++) {
+                        testSeats.add(true);
+                    }
+
+                    tempTimeSeat.add(new TimeSeat(tempHall, tempMovieTime, testSeats));//end of TimeSeat
                 }
 
-                ArrayList<TimeSeat> tempTimeSeat = new ArrayList<TimeSeat>();
-                tempTimeSeat.add(new TimeSeat(data.next(), tempCalendar, testSeats));
-                //end of TimeSeat
-
-                Movie tempMovie = new Movie(tempTitle, tempRunTime, testAgeRating, tempCalendar, tempTicketPrice, tempTimeSeat);
+                Movie tempMovie = new Movie(tempTitle, tempRunTime, testAgeRating, tempReleaseDate, tempTicketPrice, tempTimeSeat);
                 testMovies.add(tempMovie);
             }
             data.close();
