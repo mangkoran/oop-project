@@ -6,6 +6,6 @@ public class Water extends Food {
     }
 
     public String description() {
-        return "Your usual mineral water";
+        return "Get the most out of every day with the pure, crisp taste of DASANI water";
     }
 }

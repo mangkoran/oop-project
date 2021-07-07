@@ -6,6 +6,6 @@ public class Fries extends Food {
     }
 
     public String description() {
-        return "Thinly sliced potatoes that are deep-fried till they're crisp on all sides and then sprinkled with salt";
+        return "Thinly sliced potatoes that are deep-fried till crisp on all sides";
     }
 }
