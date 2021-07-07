@@ -25,8 +25,9 @@ public class TheaterTicketSystem implements LocationDate {
         Calendar testCal2 = (Calendar)testCal.clone();
         testCal2.set(Calendar.HOUR_OF_DAY, 2);
         testCal2.set(Calendar.MINUTE, 2);
-        testSeats.add(true);
-        testTimeSeats.add(new TimeSeat("HALL2", testCal2, testSeats));
+        ArrayList<Boolean> testSeats2 = new ArrayList<Boolean>();
+        testSeats2.add(true);
+        testTimeSeats.add(new TimeSeat("HALL2", testCal2, testSeats2));
         ArrayList<Movie> testMovies = new ArrayList<Movie>();
         testMovies.add(new Movie("TITLE", 111, AgeRating.G,
                                  testCal, new TicketPrice(1, 2, 3), testTimeSeats));
@@ -38,14 +39,15 @@ public class TheaterTicketSystem implements LocationDate {
         testTickets.add(1);
         testTickets.add(2);
         testTickets.add(3);
-        ArrayList<Integer> testSeats2 = new ArrayList<Integer>();
-        testSeats2.add(1);
-        testSeats2.add(2);
-        testSeats2.add(3);
+        ArrayList<Integer> testSelectedSeats = new ArrayList<Integer>();
+        testSelectedSeats.add(1);
+        testSelectedSeats.add(2);
+        testSelectedSeats.add(3);
         ArrayList<Integer> testFoodQuantity = new ArrayList<Integer>();
         testFoodQuantity.add(1);
-        Sale testSale = new Sale("HALL", "MOVIE", "CUSTOMERNAME",
-                                 testCal, foods, testSeats2,
+        int testPrice[] = { 727 };
+        Sale testSale = new Sale(testPrice, "HALL", "MOVIE", "CUSTOMERNAME",
+                                 testCal, foods, testSelectedSeats,
                                  testTickets, testFoodQuantity);
         sales.add(testSale);
         // TEST DATA END
@@ -94,41 +96,110 @@ public class TheaterTicketSystem implements LocationDate {
     }
 
     static void newTicketSale(Scanner in) {
-        Movie movieTemp = movieSelection(in);
-        TimeSeat timeSeatTemp = timeSelection(in, movieTemp);
-        ArrayList<Integer> ticketsTemp = ticketSelection(in, movieTemp, timeSeatTemp);
-        int ticketsTemp2 = 0;
-        for (Integer i : ticketsTemp) {
-            ticketsTemp2 += i;
+        Boolean loop = true;
+        int[] priceTemp = { 0 };
+        ArrayList<Movie> moviesTemp = new ArrayList<Movie>();
+        int selectedMovie = movieSelection(in, moviesTemp);
+        while (loop) {
+            if (selectedMovie < moviesTemp.size()) {
+                for (TimeSeat timeSeat : moviesTemp.get(selectedMovie).getTimeSeats()) {
+                    for (Boolean seat : timeSeat.getSeats()) {
+                        if (seat) {
+                            loop = false;
+                            break;
+                        }
+                    }
+                    if (!loop) {
+                        break;
+                    }
+                }
+                if (loop) {
+                    selectedMovie = movieSelection(in, moviesTemp);
+                }
+            } else {
+                loop = false;
+            }
         }
-        ArrayList<Integer> seatsTemp = seatSelection(in, timeSeatTemp, ticketsTemp2);
-        ArrayList<Food> foodsTemp = new ArrayList<Food>();
-        ArrayList<Integer> foodQuantityTemp = new ArrayList<Integer>();
-        foodSelection(in, foodsTemp, foodQuantityTemp);
-        // Sale saleTemp = new Sale(timeSeatTemp.getHall(), movieTemp.getTitle(), "CUSTOMERNAME",
-        //                          timeSeatTemp.getTime(), foodsTemp, seatsTemp,
-        //                          ticketsTemp, foodQuantityTemp);
-        sales.add(new Sale(timeSeatTemp.getHall(), movieTemp.getTitle(), "CUSTOMERNAME",
-                                 timeSeatTemp.getTime(), foodsTemp, seatsTemp,
-                                 ticketsTemp, foodQuantityTemp));
+        if (selectedMovie < moviesTemp.size()) {
+            loop = true;
+            Movie movieTemp = moviesTemp.get(selectedMovie);
+            TimeSeat timeSeatTemp = timeSelection(in, movieTemp);
+            while (loop) {
+                for (Boolean seat : timeSeatTemp.getSeats()) {
+                    if (seat) {
+                        loop = false;
+                        break;
+                    }
+                }
+                if (loop) {
+                    System.out.printf("Error!%n");
+                    timeSeatTemp = timeSelection(in, movieTemp);
+                }
+            }
+            ArrayList<Integer> ticketsTemp = ticketSelection(in, movieTemp, timeSeatTemp, priceTemp);
+            loop = true;
+            int ticketTotalTemp = 0;
+            while (loop) {
+                ticketTotalTemp = 0;
+                for (Integer i : ticketsTemp) {
+                    ticketTotalTemp += i;
+                }
+                int availableSeat = 0;
+                for (Boolean seat : timeSeatTemp.getSeats()) {
+                    if (seat) {
+                        availableSeat++;
+                    }
+                }
+                if (ticketTotalTemp <= availableSeat) {
+                    loop = false;
+                }
+                if (loop) {
+                    priceTemp[0] = 0;
+                    System.out.printf("Error!%n");
+                    ticketsTemp = ticketSelection(in, movieTemp, timeSeatTemp, priceTemp);
+                }
+            }
+            ArrayList<Integer> seatsTemp = seatSelection(in, timeSeatTemp, ticketTotalTemp);
+            ArrayList<Food> foodsTemp = new ArrayList<Food>();
+            ArrayList<Integer> foodQuantityTemp = new ArrayList<Integer>();
+            foodSelection(in, foodsTemp, foodQuantityTemp, priceTemp);
+            sales.add(new Sale(priceTemp, timeSeatTemp.getHall(), movieTemp.getTitle(),
+                            "CUSTOMERNAME", timeSeatTemp.getTime(), foodsTemp,
+                            seatsTemp, ticketsTemp, foodQuantityTemp));
+            summaryScreen();
+        }
     }
 
-    static Movie movieSelection(Scanner in) {
+    static int movieSelection(Scanner in, ArrayList<Movie> moviesTemp) {
         int no = 0;
-        ArrayList<Movie> moviesTemp = new ArrayList<Movie>();
+        moviesTemp.clear();
         System.out.printf("%n");
         System.out.printf("Now playing:%n");
         for (Theater theater : theaters) {
             for (Movie movie : theater.getMovies()) {
                 no++;
+                int availableSeat = 0;
+                for (TimeSeat timeSeat : movie.getTimeSeats()) {
+                    for (Boolean seat : timeSeat.getSeats()) {
+                        if (seat) {
+                            availableSeat++;
+                        }
+                    }
+                }
                 moviesTemp.add(movie);
-                System.out.printf("[%d]: %s%n", no, movie.getTitle());
+                if (availableSeat == 0) {
+                    System.out.printf("[%d] SOLD OUT%n", no);
+                } else {
+                    System.out.printf("[%d] %s%n", no, movie.getTitle());
+                }
             }
         }
+        no++;
+        System.out.printf("[%d] Quit%n", no);
         System.out.printf("%n");
         System.out.printf("Select movie [1-%d]: ", no);
 
-        return moviesTemp.get(in.nextInt() - 1);
+        return in.nextInt() - 1;
     }
 
     static TimeSeat timeSelection(Scanner in, Movie movie) {
@@ -137,7 +208,17 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("Available time:%n");
         for (TimeSeat timeSeat : movie.getTimeSeats()) {
             no++;
-            System.out.printf("[%d] %tR%n", no, timeSeat.getTime());
+            int availableSeat = 0;
+            for (Boolean seat : timeSeat.getSeats()) {
+                if (seat) {
+                    availableSeat++;
+                }
+            }
+            if (availableSeat == 0) {
+                System.out.printf("[%d] SOLD OUT%n", no);
+            } else {
+                System.out.printf("[%d] %tR (Available: %d)%n", no, timeSeat.getTime(), availableSeat);
+            }
         }
         System.out.printf("%n");
         System.out.printf("Select time [1-%d]: ", no);
@@ -145,21 +226,26 @@ public class TheaterTicketSystem implements LocationDate {
         return movie.getTimeSeats().get(in.nextInt() - 1);
     }
 
-    static ArrayList<Integer> ticketSelection(Scanner in, Movie movie, TimeSeat timeSeat) {
+    static ArrayList<Integer> ticketSelection(Scanner in, Movie movie, TimeSeat timeSeat, int[] priceTemp) {
         ArrayList<Integer> ticketsTemp = new ArrayList<Integer>();
+        int ticketPriceTemp = 0;
         System.out.printf("%n");
         System.out.printf("Select ticket:%n");
-        System.out.printf("Adult %d: ", movie.getTicketPrice().getAdult());
-        // int adult = in.nextInt();
-        ticketsTemp.add(in.nextInt());
-        System.out.printf("Child %d: ", movie.getTicketPrice().getChild());
-        // int child = in.nextInt();
-        ticketsTemp.add(in.nextInt());
-        System.out.printf("Senior %d: ", movie.getTicketPrice().getSenior());
-        // int senior = in.nextInt();
-        ticketsTemp.add(in.nextInt());
+        System.out.printf("Adult $%d: ", movie.getTicketPrice().getAdult());
+        int adult = in.nextInt();
+        ticketPriceTemp += adult * movie.getTicketPrice().getAdult();
+        ticketsTemp.add(adult);
+        System.out.printf("Child $%d: ", movie.getTicketPrice().getChild());
+        int child = in.nextInt();
+        ticketPriceTemp += child * movie.getTicketPrice().getChild();
+        ticketsTemp.add(child);
+        System.out.printf("Senior $%d: ", movie.getTicketPrice().getSenior());
+        int senior = in.nextInt();
+        ticketPriceTemp += senior * movie.getTicketPrice().getSenior();
+        ticketsTemp.add(senior);
+        System.out.printf("Ticket total price: %d%n", ticketPriceTemp);
+        priceTemp[0] += ticketPriceTemp;
 
-        // return adult + child + senior;
         return ticketsTemp;
     }
 
@@ -187,29 +273,74 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("%n");
         for (int i = 0; i < tickets; i++) {
             System.out.printf("- Seat %d: ", i + 1);
-            seatsTemp.add(in.nextInt() - 1);
-        }
-        for (Integer seat : seatsTemp) {
-            timeSeat.setSeat(seat, false);
+            int selectedSeat = in.nextInt() - 1;
+            if (timeSeat.getSeat(selectedSeat)) {
+                timeSeat.setSeat(selectedSeat, false);
+                seatsTemp.add(selectedSeat);
+            } else {
+                i--;
+                System.out.printf("Error!%n");
+            }
         }
 
         return seatsTemp;
     }
 
-    static void foodSelection(Scanner in, ArrayList<Food> foodsTemp, ArrayList<Integer> foodQuantityTemp) {
+    static void foodSelection(Scanner in, ArrayList<Food> foodsTemp, ArrayList<Integer> foodQuantityTemp,
+                              int[] priceTemp) {
         int no = 0;
+        int foodPriceTemp = 0;
         System.out.printf("%n");
         System.out.printf("Add snack:%n");
         for (Food food : foods) {
             no++;
-            System.out.printf("[%d] %s(%s)%n", no, food.getName(), food.getSize());
+            System.out.printf("[%d] %s(%s) $%d%n", no, food.getName(), food.getSize(), food.getPrice());
         }
+        no++;
+        System.out.printf("[%d] Skip%n", no);
         System.out.printf("%n");
-        System.out.printf("Select snack: ");
+        System.out.printf("Select option [1-%d]: ", no);
         int i = in.nextInt() - 1;
-        while (i + 1 != foods.size()) {
-
+        while (i < foods.size()) {
+            foodsTemp.add(foods.get(i));
+            System.out.printf("Quantity for %s(%s): ", foods.get(i).getName(), foods.get(i).getSize());
+            int foodQuantity = in.nextInt();
+            foodQuantityTemp.add(foodQuantity);
+            foodPriceTemp += foodQuantity * foods.get(i).getPrice();
+            System.out.printf("%n");
+            System.out.printf("Add another snack? [1-%d]: ", no);
+            i = in.nextInt() - 1;
         }
+        System.out.printf("Snack total price: %d%n", foodPriceTemp);
+        priceTemp[0] += foodPriceTemp;
+    }
+
+    static void summaryScreen() {
+        System.out.printf("%n");
+            System.out.printf("%n" +
+                              "Customer Name: %s%n" +
+                              "Movie: %s%n" +
+                              "Movie Time: %tR%n" +
+                              "Hall: %s%n" +
+                              "Ticket: %n" +
+                              "- Adult: %d Child: %d Senior: %d%n",
+                              sales.get(sales.size() - 1).getCustomerName(), sales.get(sales.size() - 1).getMovie(),
+                              sales.get(sales.size() - 1).getMovieTime(), sales.get(sales.size() - 1).getHall(),
+                              sales.get(sales.size() - 1).getTickets().get(0),
+                              sales.get(sales.size() - 1).getTickets().get(1),
+                              sales.get(sales.size() - 1).getTickets().get(2));
+            System.out.printf("Seat: ");
+            for (int i = 0; i < sales.get(sales.size() - 1).getSeats().size(); i++) { // print seat
+                System.out.printf("%d ", sales.get(sales.size() - 1).getSeats().get(i) + 1);
+            }
+            System.out.printf("%n");
+            System.out.printf("Food: %n");
+            for (int i = 0; i < sales.get(sales.size() - 1).getFoods().size(); i++) { // print food with quantity
+                System.out.printf("- %s(%s): %d%n", sales.get(sales.size() - 1).getFoods().get(i).getName(),
+                                  sales.get(sales.size() - 1).getFoods().get(i).getSize(),
+                                  sales.get(sales.size() - 1).getFoodQuantity().get(i));
+            }
+            System.out.printf("Price: %d%n", sales.get(sales.size() - 1).getPrice()[0]);
     }
 
     static void viewTicketSaleHistory() {
