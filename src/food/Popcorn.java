@@ -1,17 +1,11 @@
 package food;
 public class Popcorn extends Food {
-    private String flavour;
 
-    public Popcorn(String name, String flavour, char size, int price) {
+    public Popcorn(String name, char size, int price) {
         super(name, size, price);
-        this.flavour = flavour;
     }
 
     public String description() {
-        return "Corn kernel which expands and puffs up when heated, comes in different flavours";
-    }
-
-    public String getFlavour() {
-        return flavour;
+        return "Premium jumbo size popcorn tastes like the movie theater butter flavor you love";
     }
 }

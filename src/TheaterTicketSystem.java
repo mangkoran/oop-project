@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import food.Food;
+import food.Fries;
+import food.Popcorn;
 import food.Water;
 import movie.AgeRating;
 import movie.Movie;
@@ -38,7 +40,6 @@ public class TheaterTicketSystem implements LocationDate {
         //                          testCal, new TicketPrice(1, 2, 3), testTimeSeats));
         // Theater testTheater = new Theater("NAME", testMovies);
         // theaters.add(testTheater);
-        foods.add(new Water("WATER", 'M', 1));
         // viewTicketSaleHistory DATA
         // ArrayList<Integer> testTickets = new ArrayList<Integer>();
         // testTickets.add(1);
@@ -56,21 +57,16 @@ public class TheaterTicketSystem implements LocationDate {
         //                          testTickets, testFoodQuantity);
         // sales.add(testSale);
         // TEST DATA END
+        // FOOD
+        foods.add(new Water("DASANI", 'M', 2));
+        foods.add(new Fries("Curly Fries", 'L', 5));
+        foods.add(new Popcorn("PopSecret Butter", 'L', 10));
+        // FOOD END
         // INPUT FILE
-        // ArrayList<Theater> theaters = new ArrayList<Theater>();
         try {
             ArrayList<Movie> movies = new ArrayList<Movie>();
             Scanner in = new Scanner(new File("input.txt"));
             in.useDelimiter("[,\\n]");
-            // ArrayList<TimeSeat> timeSeats = new ArrayList<TimeSeat>();
-
-            // while (in.hasNext()) {
-            //     if (in.hasNext("[A]")) {
-            //         in.skip("[,][A]");
-            //         System.out.printf("regex found%n");
-            //     }
-            //     System.out.printf("%s ", in.next());
-            // }
             int movieCount = 0;
             while (in.hasNext()) {
                 movieCount++;
@@ -144,7 +140,9 @@ public class TheaterTicketSystem implements LocationDate {
                     break;
                 default:
                     System.out.printf("%n" +
-                                      "Error! Please enter option correctly!%n");
+                                      "Error!%n");
+                    System.out.printf("Insert Y to continue: ");
+                    in.next();
                     break;
             }
         }
@@ -161,7 +159,7 @@ public class TheaterTicketSystem implements LocationDate {
                           "Main Menu%n" +
                           "[1] New Ticket Sale%n" +
                           "[2] View Ticket Sale History%n" +
-                          "[3] Quit System%n" +
+                          "[3] Quit%n" +
                           "%n" +
                           "Select option [1-3]: ",
                           location, dateTime, dateTime, dateTime);
@@ -188,10 +186,18 @@ public class TheaterTicketSystem implements LocationDate {
                     }
                 }
                 if (loop) {
+                    System.out.printf("Error!%n");
+                    System.out.printf("Insert Y to continue: ");
+                    in.next();
                     selectedMovie = movieSelection(in, moviesTemp);
                 }
-            } else {
+            } else if (selectedMovie == moviesTemp.size()) {
                 loop = false;
+            } else {
+                System.out.printf("Error!%n");
+                System.out.printf("Insert Y to continue: ");
+                in.next();
+                selectedMovie = movieSelection(in, moviesTemp);
             }
         }
         if (selectedMovie < moviesTemp.size()) {
@@ -207,6 +213,8 @@ public class TheaterTicketSystem implements LocationDate {
                 }
                 if (loop) {
                     System.out.printf("Error!%n");
+                    System.out.printf("Insert Y to continue: ");
+                    in.next();
                     timeSeatTemp = timeSelection(in, movieTemp);
                 }
             }
@@ -230,6 +238,8 @@ public class TheaterTicketSystem implements LocationDate {
                 if (loop) {
                     priceTemp[0] = 0;
                     System.out.printf("Error!%n");
+                    System.out.printf("Insert Y to continue: ");
+                    in.next();
                     ticketsTemp = ticketSelection(in, movieTemp, timeSeatTemp, priceTemp);
                 }
             }
@@ -305,15 +315,15 @@ public class TheaterTicketSystem implements LocationDate {
         int ticketPriceTemp = 0;
         System.out.printf("%n");
         System.out.printf("Select ticket:%n");
-        System.out.printf("Adult $%d: ", movie.getTicketPrice().getAdult());
+        System.out.printf("- $%d Adult: ", movie.getTicketPrice().getAdult());
         int adult = in.nextInt();
         ticketPriceTemp += adult * movie.getTicketPrice().getAdult();
         ticketsTemp.add(adult);
-        System.out.printf("Child $%d: ", movie.getTicketPrice().getChild());
+        System.out.printf("- $%d Child: ", movie.getTicketPrice().getChild());
         int child = in.nextInt();
         ticketPriceTemp += child * movie.getTicketPrice().getChild();
         ticketsTemp.add(child);
-        System.out.printf("Senior $%d: ", movie.getTicketPrice().getSenior());
+        System.out.printf("- $%d Senior: ", movie.getTicketPrice().getSenior());
         int senior = in.nextInt();
         ticketPriceTemp += senior * movie.getTicketPrice().getSenior();
         ticketsTemp.add(senior);
@@ -331,11 +341,11 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("%n");
         for (Boolean seat : timeSeat.getSeats()) {
             no++;
-            if (no % 4 == 0) {
+            if (seat && no % 3 == 0 && no != timeSeat.getSeats().size()) {
+                System.out.printf("[%d]  ", no);
                 System.out.printf("%n" +
                                   "%n");
-            }
-            if (seat) {
+            } else if (seat) {
                 System.out.printf("[%d]  ", no);
             } else {
                 System.out.printf("[X]  ");
@@ -354,6 +364,8 @@ public class TheaterTicketSystem implements LocationDate {
             } else {
                 i--;
                 System.out.printf("Error!%n");
+                System.out.printf("Insert Y to continue: ");
+                in.next();
             }
         }
 
@@ -368,7 +380,7 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("Add snack:%n");
         for (Food food : foods) {
             no++;
-            System.out.printf("[%d] %s(%s) $%d%n", no, food.getName(), food.getSize(), food.getPrice());
+            System.out.printf("[%d] $%d %s(%s): %s%n", no, food.getPrice(), food.getName(), food.getSize(), food.description());
         }
         no++;
         System.out.printf("[%d] Skip%n", no);
