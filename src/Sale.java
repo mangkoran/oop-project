@@ -4,7 +4,6 @@ import java.util.Calendar;
 import food.Food;
 
 public class Sale {
-    private int[] price;
     private String hall;
     private String movie;
     private Calendar movieTime;
@@ -14,8 +13,7 @@ public class Sale {
     private ArrayList<Integer> tickets;
     private ArrayList<Integer> foodQuantity;
 
-    public Sale(int[] price,
-                String hall,
+    public Sale(String hall,
                 String movie,
                 String customerName,
                 Calendar movieTime,
@@ -23,7 +21,6 @@ public class Sale {
                 ArrayList<Integer> seats,
                 ArrayList<Integer> tickets,
                 ArrayList<Integer> foodQuantity) {
-        this.price = price;
         this.hall = hall;
         this.movie = movie;
         this.customerName = customerName;
@@ -32,14 +29,6 @@ public class Sale {
         this.seats = seats;
         this.tickets = tickets;
         this.foodQuantity = foodQuantity;
-    }
-
-    public int[] getPrice() {
-        return price;
-    }
-
-    public void setPrice(int[] price) {
-        this.price = price;
     }
 
     public String getHall() {
