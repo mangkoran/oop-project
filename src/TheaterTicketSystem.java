@@ -168,6 +168,9 @@ public class TheaterTicketSystem implements LocationDate {
     }
 
     static void newTicketSale(Scanner in) {
+        System.out.printf("%n");
+        System.out.printf("Enter customer name: ");
+        String customerName = in.next();
         Boolean loop = true;
         int[] priceTemp = { 0 };
         ArrayList<Movie> moviesTemp = new ArrayList<Movie>();
@@ -248,7 +251,7 @@ public class TheaterTicketSystem implements LocationDate {
             ArrayList<Integer> foodQuantityTemp = new ArrayList<Integer>();
             foodSelection(in, foodsTemp, foodQuantityTemp, priceTemp);
             sales.add(new Sale(priceTemp, timeSeatTemp.getHall(), movieTemp.getTitle(),
-                            "CUSTOMERNAME", timeSeatTemp.getTime(), foodsTemp,
+                            customerName, timeSeatTemp.getTime(), foodsTemp,
                             seatsTemp, ticketsTemp, foodQuantityTemp));
             summaryScreen();
         }
@@ -380,7 +383,8 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("Add snack:%n");
         for (Food food : foods) {
             no++;
-            System.out.printf("[%d] $%d %s(%s): %s%n", no, food.getPrice(), food.getName(), food.getSize(), food.description());
+            System.out.printf("[%d] $%d %s(%s)%n" +
+                              "     %s%n", no, food.getPrice(), food.getName(), food.getSize(), food.description());
         }
         no++;
         System.out.printf("[%d] Skip%n", no);
@@ -439,9 +443,9 @@ public class TheaterTicketSystem implements LocationDate {
             no++;
             System.out.printf("%n" +
                               "Sale [%d]%n" +
-                              "Customer Name: %s%n" +
+                              "Customer name: %s%n" +
                               "Movie: %s%n" +
-                              "Movie Time: %tR%n" +
+                              "Movie time: %tR%n" +
                               "Hall: %s%n" +
                               "Ticket: %n" +
                               "- Adult: %d Child: %d Senior: %d%n",
@@ -457,6 +461,7 @@ public class TheaterTicketSystem implements LocationDate {
             for (int i = 0; i < sale.getFoods().size(); i++) { // print food with quantity
                 System.out.printf("- %s(%s): %d%n", sale.getFoods().get(i).getName(), sale.getFoods().get(i).getSize(), sale.getFoodQuantity().get(i));
             }
+            System.out.printf("Total price: $%d%n", sale.getPrice()[0]);
         }
     }
 }
