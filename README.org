@@ -1,4 +1,4 @@
-#+TITLE: Cinema Ticketing System
+#+TITLE: Theater Ticketing System
 
 * Repository Structure
 - ~bin/~: ~.class~ files. Use ~javac~ command to compile ~.java~ file and set ~bin/~ as destination (and classpath)
@@ -6,10 +6,13 @@
 
 * Compiling
 #+begin_src bash
-javac -d bin/ src/<filename>.java
-javac -cp bin/ -d bin/ src/<filename>.java
-java -cp bin/ <mainclass>
+javac -cp bin/ -d bin/ src/food/*.java
+javac -cp bin/ -d bin/ src/movie/*.java
+javac -cp bin/ -d bin/ src/*.java
+java -cp bin/ TheaterTicketSystem
 #+end_src
 
 * Contributor
-- <list your name here>
+- Afiq Nazrie Rabbani
+- Fathimah Hasanti
+- Muhammad Iskandar Zulqarnain Bin Mohd Ishak
