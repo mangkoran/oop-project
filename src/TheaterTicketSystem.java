@@ -287,8 +287,12 @@ public class TheaterTicketSystem implements LocationDate {
         System.out.printf("%n");
         for (Boolean seat : timeSeat.getSeats()) {
             no++;
-            if (seat && no % 3 == 0 && no != timeSeat.getSeats().size()) {
-                System.out.printf("[%d]  ", no);
+            if (no % 3 == 0 && no != timeSeat.getSeats().size()) {
+                if (seat) {
+                    System.out.printf("[%d]  ", no);
+                } else {
+                    System.out.printf("[X]  ");
+                }
                 System.out.printf("%n" +
                                   "%n");
             } else if (seat) {
